@@ -25,6 +25,6 @@ VTSpec_volume: Volume of the Highest Volume Frequency.
 
 1: As of right now, the App does not support changing the default connection IP address or Port. Use LocalHost port 8001 (the default for VtubeStudio)
 
-2: ~~ Done: Adaptive Volume Ratios: Right now if a loud noise is processed, the volume ratio will permanently be stuck based on the singular loud noise. Next version will have adaptive volume ratios to remedy this issue. ~~
+2: ~~Done: Adaptive Volume Ratios: Right now if a loud noise is processed, the volume ratio will permanently be stuck based on the singular loud noise. Next version will have adaptive volume ratios to remedy this issue.~~
 
 3: ToDo: Option to split left/right tracks for stereo audio and double the number of parameters.
