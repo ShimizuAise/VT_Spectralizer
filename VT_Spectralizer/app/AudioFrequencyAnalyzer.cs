@@ -15,7 +15,7 @@ namespace VT_Spectralizer.app
         // private string audioOutputDeviceGuid;
         private const int BufferSize = 2048;  // Size of the buffer for capturing audio
         private const int SampleRate = 44100; // Sample rate (standard for most systems)
-        private float maxOverallAmplitude = 0f;
+        private float[] maxAmplitudes = new float[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f };
 
         // Reference to Form1 to invoke UI updates
         private readonly FormMain _form;
@@ -88,7 +88,7 @@ namespace VT_Spectralizer.app
         {
             capture?.StopRecording();
             capture?.Dispose();
-            maxOverallAmplitude = 0f;
+            Array.Clear(maxAmplitudes);
         }
 
         // Calculate volumes for each frequency band
@@ -146,29 +146,23 @@ namespace VT_Spectralizer.app
                 }
             }
 
-            // Find the max amplitude for the current loop and compare it to the global max
-            float currentMaxAmplitude = bandAmplitudes.Max();
-
-            // Update the global max amplitude if the current one is larger
-            if (currentMaxAmplitude > maxOverallAmplitude)
-            {
-                maxOverallAmplitude = currentMaxAmplitude;
-            }
-
-
-            if (maxOverallAmplitude < 0.005f)  // Set this threshold to suit your needs
-            {
-                return new float[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f };  // Silence
-            }
             // Apply exponential smoothing to the frequency bands
             // float[] smoothedVolumes = new float[7];  // Store smoothed values
             float[] frequencyVolumes = new float[7];
 
             for (int i = 0; i < bandAmplitudes.Length; i++)
             {
-                // Apply exponential smoothing to the frequencies (smoothing factor of 0.2 or 0.3)
-                // smoothedVolumes[i] = smoothedVolumes[i] * 0.8f + bandAmplitudes[i] * 0.2f; // Adjust 0.2f for more/less smoothing
-                frequencyVolumes[i] = (bandAmplitudes[i] / maxOverallAmplitude) * 100;
+                if ((bandAmplitudes[i] >= maxAmplitudes[i])) // If this is a new max or equal
+                {
+                    maxAmplitudes[i] = bandAmplitudes[i];
+                }
+                else maxAmplitudes[i] *= 0.995f;
+
+                float scaledFrequency = (bandAmplitudes[i] / maxAmplitudes[i]) * 100;
+                if (scaledFrequency < 50f) scaledFrequency *= 0.5f;
+                else if (scaledFrequency < 70f) scaledFrequency *= 0.7f;
+
+                frequencyVolumes[i] = scaledFrequency;
 
                 // If the amplitude is really small, consider it as zero.
                 if (frequencyVolumes[i] < 1)
