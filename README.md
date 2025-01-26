@@ -21,6 +21,14 @@ VTSpec_brilliance: Volume of Highest Range Frequencies:	6 kHz to 20 kHz, Range: 
 
 VTSpec_volume: Volume of the Highest Volume Frequency. Range: 0-100
 
+# Shilling
+
+This app is completely free and open source but if you want to support me, follow me on Twitch at https://www.twitch.tv/shimizuaise or donate to me at https://streamlabs.com/shimizuaise/tip !
+
+# Contribute
+
+If you want to contribute, you can submit pull requests, or just report bugs.
+
 # Issues and Backlog
 
 1: As of right now, the App does not support changing the default connection IP address or Port. Use LocalHost port 8001 (the default for VtubeStudio)
