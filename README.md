@@ -23,7 +23,11 @@ VTSpec_volume: Volume of the Highest Volume Frequency. Range: 0-100
 
 # Shilling
 
-This app is completely free and open source but if you want to support me, follow me on Twitch at https://www.twitch.tv/shimizuaise or donate to me at https://streamlabs.com/shimizuaise/tip !
+This app is completely free and open source. 
+
+If you want to support me, follow me on Twitch at https://www.twitch.tv/shimizuaise or donate to me at https://streamlabs.com/shimizuaise/tip !
+
+My Socials are: https://x.com/ShimizuAise and https://bsky.app/profile/shimizuaise.bsky.social 
 
 # Contribute
 
