@@ -3,7 +3,7 @@ This App will create 9 Parameters in VTube Studio.
 
 # Parameters
 
-VTSpec_toggle: This is a toggle controllable via this App's UI. Range: 0-1
+VTSpec_toggle: This is a toggle controllable via this App's UI with 5 selectable values. Range: 0-1
 
 VTSpec_subBass: Volume of SubBass Frequencies, 20 Hz to 60 Hz, Range: 0-100
 
@@ -40,3 +40,5 @@ If you want to contribute, you can submit pull requests, or just report bugs.
 2: Done: ~~Adaptive Volume Ratios: Right now if a loud noise is processed, the volume ratio will permanently be stuck based on the singular loud noise. Next version will have adaptive volume ratios to remedy this issue.~~
 
 3: ToDo: Option to split left/right tracks for stereo audio and double the number of parameters.
+
+4: ToDo: Change the param range from 0-100 to 0-1.
