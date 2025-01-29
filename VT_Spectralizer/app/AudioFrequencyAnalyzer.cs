@@ -15,7 +15,7 @@ namespace VT_Spectralizer.app
         // private string audioOutputDeviceGuid;
         private const int BufferSize = 2048;  // Size of the buffer for capturing audio
         private const int SampleRate = 44100; // Sample rate (standard for most systems)
-        private float[] maxAmplitudes = new float[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f };
+        private float[] maxAmplitudes = new float[] { 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f, 0.01f };
 
         // Reference to Form1 to invoke UI updates
         private readonly FormMain _form;
@@ -84,11 +84,12 @@ namespace VT_Spectralizer.app
         }
 
         // Stop capturing the audio
-        public void StopCapture()
+        public void StopCapture(Action<string> UpdateLogs)
         {
             capture?.StopRecording();
             capture?.Dispose();
-            Array.Clear(maxAmplitudes);
+            Array.Fill(maxAmplitudes, 0.01f);
+            UpdateLogs("Audio Capture Stopped");
         }
 
         // Calculate volumes for each frequency band
@@ -165,9 +166,9 @@ namespace VT_Spectralizer.app
                 frequencyVolumes[i] = scaledFrequency;
 
                 // If the amplitude is really small, consider it as zero.
-                if (frequencyVolumes[i] < 1)
+                if (frequencyVolumes[i] < 1f)
                 {
-                    frequencyVolumes[i] = 0;
+                    frequencyVolumes[i] = 0f;
                 }
             }
             return frequencyVolumes;

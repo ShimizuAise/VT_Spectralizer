@@ -31,7 +31,7 @@ namespace VT_Spectralizer
 
         // VTS Stuff
         private bool isConnected = false;
-        private bool toggleValue = true;
+        private float paramToggle = 0f;
 
         // Handle the Looping Tasks
         private bool isRunning = false;
@@ -40,7 +40,7 @@ namespace VT_Spectralizer
         private AudioCaptureFromOutput audioCapture;
         private string audioOutputDeviceGuid;
 
-        private const string iconPath = $".\\Resources\\icon.png";
+        private const string iconPath = ".\\Resources\\icon_128.png";
 
         VTubeStudioController vtsController;
         SettingsHandler settingsHandler;
@@ -72,14 +72,19 @@ namespace VT_Spectralizer
 
             // Set the Interval Setting.
             string intervalSetting = settingsHandler.LoadSetting("updateInterval");
+            string paramFloatString = settingsHandler.LoadSetting("paramToggle");
             if (intervalSetting.IsNullOrEmpty()) intervalSetting = "16";
             updateInterval = Math.Max(16, Int32.Parse(intervalSetting));
             IntervalTextBox.Text = updateInterval.ToString();
+            if (paramFloatString.IsNullOrEmpty()) paramFloatString = "0";
+            paramToggle = float.Parse(paramFloatString);
+            VTSpecParamCombobox.Text = paramFloatString;
         }
 
         public void SaveSettings()
         {
             settingsHandler.UpdateSettings("updateInterval", updateInterval.ToString());
+            settingsHandler.UpdateSettings("paramToggle", paramToggle.ToString());
         }
 
         private async void VTSConnect()
@@ -109,7 +114,7 @@ namespace VT_Spectralizer
             TaskButton.Enabled = false;
             if (audioCapture != null)
             {
-                audioCapture.StopCapture(); // Stop any previous capture
+                audioCapture.StopCapture(UpdateLog); // Stop any previous capture
             }
             audioCapture = new AudioCaptureFromOutput(audioOutputDeviceGuid, this);
             audioCapture.StartCapture(UpdateLog);
@@ -120,7 +125,7 @@ namespace VT_Spectralizer
 
         public void StopApp()
         {
-            audioCapture.StopCapture();
+            audioCapture.StopCapture(UpdateLog);
             TaskButton.Enabled = false;
             isRunning = false;
             TaskButton.Text = "Start Audio Capture";
@@ -145,8 +150,7 @@ namespace VT_Spectralizer
 
             if (currentTimeMS > nextSendMS)
             {
-                float vts_toggle = toggleValue ? 1f : 0f;
-                vtsController.SendParams(frequencyVolumes, vts_toggle);
+                vtsController.SendParams(frequencyVolumes, paramToggle);
                 nextSendMS = currentTimeMS + updateInterval;
             }
         }
@@ -177,11 +181,6 @@ namespace VT_Spectralizer
             if (isRunning) StopApp(); else StartApp();
         }
 
-        private void VTSpecCheckbox_CheckedChanged(object sender, EventArgs e)
-        {
-            toggleValue = VTSpecCheckbox.Checked;
-        }
-
         private void PortTextBox_TextChanged(object sender, EventArgs e)
         {
             if (System.Text.RegularExpressions.Regex.IsMatch(PortTextBox.Text, "[^0-9]"))
@@ -198,6 +197,13 @@ namespace VT_Spectralizer
                 IntervalTextBox.Text = IntervalTextBox.Text.Remove(IntervalTextBox.Text.Length - 1);
             }
             updateInterval = Math.Max(Int32.Parse(IntervalTextBox.Text), 10);
+            SaveSettings();
+        }
+
+        private void VTSpecParamCombobox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string value = VTSpecParamCombobox.Text;
+            paramToggle = float.Parse(value);
             SaveSettings();
         }
     }

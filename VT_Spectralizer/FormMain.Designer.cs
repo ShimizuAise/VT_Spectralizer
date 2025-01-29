@@ -52,9 +52,10 @@
             label9 = new Label();
             labelMaxVolume = new Label();
             label10 = new Label();
-            VTSpecCheckbox = new CheckBox();
             IntervalTextBox = new TextBox();
             label11 = new Label();
+            label12 = new Label();
+            VTSpecParamCombobox = new ComboBox();
             SuspendLayout();
             // 
             // ConnectButton
@@ -92,9 +93,11 @@
             // LogTextBox
             // 
             LogTextBox.BackColor = SystemColors.ScrollBar;
+            LogTextBox.Enabled = false;
             LogTextBox.Location = new Point(12, 258);
             LogTextBox.Multiline = true;
             LogTextBox.Name = "LogTextBox";
+            LogTextBox.ScrollBars = ScrollBars.Vertical;
             LogTextBox.Size = new Size(388, 166);
             LogTextBox.TabIndex = 3;
             // 
@@ -278,19 +281,6 @@
             label10.TabIndex = 24;
             label10.Text = "Max Volume";
             // 
-            // VTSpecCheckbox
-            // 
-            VTSpecCheckbox.AutoSize = true;
-            VTSpecCheckbox.Checked = true;
-            VTSpecCheckbox.CheckState = CheckState.Checked;
-            VTSpecCheckbox.Location = new Point(196, 185);
-            VTSpecCheckbox.Name = "VTSpecCheckbox";
-            VTSpecCheckbox.Size = new Size(204, 19);
-            VTSpecCheckbox.TabIndex = 25;
-            VTSpecCheckbox.Text = "Toggle VTSspec_Toggle Parameter";
-            VTSpecCheckbox.UseVisualStyleBackColor = true;
-            VTSpecCheckbox.CheckedChanged += VTSpecCheckbox_CheckedChanged;
-            // 
             // IntervalTextBox
             // 
             IntervalTextBox.BackColor = SystemColors.Window;
@@ -311,14 +301,37 @@
             label11.TabIndex = 27;
             label11.Text = "Update Interval (ms)";
             // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(198, 159);
+            label12.Name = "label12";
+            label12.Size = new Size(128, 15);
+            label12.TabIndex = 28;
+            label12.Text = "VTSpec_Toggle Param: ";
+            // 
+            // VTSpecParamCombobox
+            // 
+            VTSpecParamCombobox.FormattingEnabled = true;
+            VTSpecParamCombobox.Items.AddRange(new object[] { "0", "0.25", "0.5", "0.75", "1" });
+            VTSpecParamCombobox.Location = new Point(332, 156);
+            VTSpecParamCombobox.MaxDropDownItems = 5;
+            VTSpecParamCombobox.MaxLength = 4;
+            VTSpecParamCombobox.Name = "VTSpecParamCombobox";
+            VTSpecParamCombobox.Size = new Size(68, 23);
+            VTSpecParamCombobox.TabIndex = 29;
+            VTSpecParamCombobox.Text = "0";
+            VTSpecParamCombobox.SelectedIndexChanged += VTSpecParamCombobox_SelectedIndexChanged;
+            // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(434, 450);
+            Controls.Add(VTSpecParamCombobox);
+            Controls.Add(label12);
             Controls.Add(label11);
             Controls.Add(IntervalTextBox);
-            Controls.Add(VTSpecCheckbox);
             Controls.Add(label10);
             Controls.Add(labelMaxVolume);
             Controls.Add(label9);
@@ -374,8 +387,9 @@
         private Label label9;
         private Label labelMaxVolume;
         private Label label10;
-        private CheckBox VTSpecCheckbox;
         private TextBox IntervalTextBox;
         private Label label11;
+        private Label label12;
+        private ComboBox VTSpecParamCombobox;
     }
 }
