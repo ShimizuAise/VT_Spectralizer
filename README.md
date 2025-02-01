@@ -1,5 +1,6 @@
 # About: 
-This App will create 9 Parameters in VTube Studio.
+
+This App will create 9 Parameters in VTube Studio. 
 
 # Parameters
 
@@ -21,9 +22,25 @@ VTSpec_brilliance: Volume of Highest Range Frequencies:	6 kHz to 20 kHz, Range: 
 
 VTSpec_volume: Volume of the Highest Volume Frequency. Range: 0-100
 
+# Setup
+
+For VTubers:
+
+1. Download the program. Its just a zip file, with no installation needed. (To Uninstall, just delete it)
+
+2. Open the app along with your VTubeStudio.
+
+3. In VT Spectralizer start audio capture, then Connect to VTubeStudio.
+
+For Riggers using Live2D's VTS connection for previews:
+
+1. You will need to connect VT_Spectralizer to VTubeStudio at least once before the parameters will show up during model setup.
+
+2. The Recommended order for setup is: Export model with the params you want to use. Set up the model's params in VTubeStudio, then continue rigging.
+
 # Shilling
 
-This app is completely free and open source. 
+This app is completely free and open source.
 
 If you want to support me, follow me on Twitch at https://www.twitch.tv/shimizuaise or donate at https://streamlabs.com/shimizuaise/tip
 
@@ -31,7 +48,7 @@ My Socials are: https://x.com/ShimizuAise and https://bsky.app/profile/shimizuai
 
 # Contribute
 
-If you want to contribute, you can submit pull requests, or just report bugs.
+If you want to contribute, you can submit pull requests, or report bugs.
 
 # Issues and Backlog
 
@@ -42,3 +59,7 @@ If you want to contribute, you can submit pull requests, or just report bugs.
 3: ToDo: Option to split left/right tracks for stereo audio and double the number of parameters.
 
 4: ToDo: Change the param range from 0-100 to 0-1.
+
+5: ToDo: Better UI Design to move away from default windows design.
+
+6: ToDo: Allow selection of audio input device for users of Virtual Audio Cable and similar apps.
