@@ -4,6 +4,8 @@ VT_Spectralizer by ShimizuAise:
 
 This App will create 9 Parameters in VTube Studio. 
 
+I will do new releases as I finish important features or bugfixes. If you want a feature that is complete but not in a release, you can build the app from the source code.
+
 # Parameters
 
 VTSpec_toggle: This is a toggle controllable via this App's UI with 5 selectable values. Range: 0-1
