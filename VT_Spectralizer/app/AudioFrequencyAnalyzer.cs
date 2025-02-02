@@ -37,12 +37,16 @@ namespace VT_Spectralizer.app
         {
             audioOutputDeviceGuid = deviceGuid;
             _form = form;
-            /*
-            // Create a device enumerator to get the MMDevice
-            var enumerator = new MMDeviceEnumerator();
-            MMDevice device = enumerator.GetDevice(audioOutputDeviceGuid);
-            */
-            capture = new WasapiLoopbackCapture();
+
+            if (String.IsNullOrEmpty(deviceGuid)) {
+                capture = new WasapiLoopbackCapture();
+            } else
+            {
+                var enumerator = new MMDeviceEnumerator();
+                MMDevice device = enumerator.GetDevice(audioOutputDeviceGuid);
+                capture = new WasapiLoopbackCapture(device);
+            }
+       
             capture.WaveFormat = new WaveFormat(SampleRate, 16, 2);  // Set the sample rate and channels (stereo)
         }
 

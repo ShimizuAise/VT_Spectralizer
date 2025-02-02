@@ -56,6 +56,9 @@
             label11 = new Label();
             label12 = new Label();
             VTSpecParamCombobox = new ComboBox();
+            ComboBoxAudioDevices = new ComboBox();
+            label13 = new Label();
+            linkAbout = new LinkLabel();
             SuspendLayout();
             // 
             // ConnectButton
@@ -98,7 +101,7 @@
             LogTextBox.Multiline = true;
             LogTextBox.Name = "LogTextBox";
             LogTextBox.ScrollBars = ScrollBars.Vertical;
-            LogTextBox.Size = new Size(388, 166);
+            LogTextBox.Size = new Size(410, 166);
             LogTextBox.TabIndex = 3;
             // 
             // label1
@@ -123,7 +126,7 @@
             // 
             TaskButton.Location = new Point(11, 185);
             TaskButton.Name = "TaskButton";
-            TaskButton.Size = new Size(179, 23);
+            TaskButton.Size = new Size(156, 23);
             TaskButton.TabIndex = 6;
             TaskButton.Text = "Start Audio Capture";
             TaskButton.UseVisualStyleBackColor = true;
@@ -132,7 +135,7 @@
             // labelSubBass
             // 
             labelSubBass.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            labelSubBass.Location = new Point(270, 22);
+            labelSubBass.Location = new Point(292, 22);
             labelSubBass.Name = "labelSubBass";
             labelSubBass.Size = new Size(130, 15);
             labelSubBass.TabIndex = 9;
@@ -142,7 +145,7 @@
             // labelBass
             // 
             labelBass.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            labelBass.Location = new Point(270, 37);
+            labelBass.Location = new Point(292, 37);
             labelBass.Name = "labelBass";
             labelBass.Size = new Size(130, 15);
             labelBass.TabIndex = 10;
@@ -152,7 +155,7 @@
             // labelLowMid
             // 
             labelLowMid.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            labelLowMid.Location = new Point(270, 52);
+            labelLowMid.Location = new Point(292, 52);
             labelLowMid.Name = "labelLowMid";
             labelLowMid.Size = new Size(130, 15);
             labelLowMid.TabIndex = 11;
@@ -162,7 +165,7 @@
             // labelMidrange
             // 
             labelMidrange.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            labelMidrange.Location = new Point(270, 67);
+            labelMidrange.Location = new Point(292, 67);
             labelMidrange.Name = "labelMidrange";
             labelMidrange.Size = new Size(130, 15);
             labelMidrange.TabIndex = 12;
@@ -172,7 +175,7 @@
             // labelUpperMid
             // 
             labelUpperMid.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            labelUpperMid.Location = new Point(270, 82);
+            labelUpperMid.Location = new Point(292, 82);
             labelUpperMid.Name = "labelUpperMid";
             labelUpperMid.Size = new Size(130, 15);
             labelUpperMid.TabIndex = 13;
@@ -182,7 +185,7 @@
             // labelPresence
             // 
             labelPresence.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            labelPresence.Location = new Point(270, 97);
+            labelPresence.Location = new Point(292, 97);
             labelPresence.Name = "labelPresence";
             labelPresence.Size = new Size(130, 15);
             labelPresence.TabIndex = 14;
@@ -192,7 +195,7 @@
             // labelBrilliance
             // 
             labelBrilliance.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            labelBrilliance.Location = new Point(270, 112);
+            labelBrilliance.Location = new Point(292, 112);
             labelBrilliance.Name = "labelBrilliance";
             labelBrilliance.Size = new Size(130, 15);
             labelBrilliance.TabIndex = 15;
@@ -265,7 +268,7 @@
             // labelMaxVolume
             // 
             labelMaxVolume.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            labelMaxVolume.Location = new Point(270, 127);
+            labelMaxVolume.Location = new Point(292, 127);
             labelMaxVolume.Name = "labelMaxVolume";
             labelMaxVolume.Size = new Size(130, 15);
             labelMaxVolume.TabIndex = 23;
@@ -284,10 +287,10 @@
             // IntervalTextBox
             // 
             IntervalTextBox.BackColor = SystemColors.Window;
-            IntervalTextBox.Location = new Point(133, 156);
+            IntervalTextBox.Location = new Point(142, 156);
             IntervalTextBox.MaxLength = 3;
             IntervalTextBox.Name = "IntervalTextBox";
-            IntervalTextBox.Size = new Size(57, 23);
+            IntervalTextBox.Size = new Size(48, 23);
             IntervalTextBox.TabIndex = 26;
             IntervalTextBox.Text = "32";
             IntervalTextBox.TextChanged += IntervalTextBox_TextChanged;
@@ -318,16 +321,48 @@
             VTSpecParamCombobox.MaxDropDownItems = 5;
             VTSpecParamCombobox.MaxLength = 4;
             VTSpecParamCombobox.Name = "VTSpecParamCombobox";
-            VTSpecParamCombobox.Size = new Size(68, 23);
+            VTSpecParamCombobox.Size = new Size(90, 23);
             VTSpecParamCombobox.TabIndex = 29;
             VTSpecParamCombobox.Text = "0";
             VTSpecParamCombobox.SelectedIndexChanged += VTSpecParamCombobox_SelectedIndexChanged;
+            // 
+            // ComboBoxAudioDevices
+            // 
+            ComboBoxAudioDevices.FormattingEnabled = true;
+            ComboBoxAudioDevices.Location = new Point(259, 186);
+            ComboBoxAudioDevices.Name = "ComboBoxAudioDevices";
+            ComboBoxAudioDevices.Size = new Size(163, 23);
+            ComboBoxAudioDevices.TabIndex = 30;
+            ComboBoxAudioDevices.SelectedIndexChanged += ComboBoxAudioDevices_SelectedIndexChanged;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(173, 189);
+            label13.Name = "label13";
+            label13.Size = new Size(80, 15);
+            label13.TabIndex = 31;
+            label13.Text = "Audio Device:";
+            // 
+            // linkAbout
+            // 
+            linkAbout.AutoSize = true;
+            linkAbout.Location = new Point(335, 427);
+            linkAbout.Name = "linkAbout";
+            linkAbout.Size = new Size(87, 15);
+            linkAbout.TabIndex = 32;
+            linkAbout.TabStop = true;
+            linkAbout.Text = "About this App";
+            linkAbout.LinkClicked += LinkAbout_LinkClicked;
             // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(434, 450);
+            Controls.Add(linkAbout);
+            Controls.Add(label13);
+            Controls.Add(ComboBoxAudioDevices);
             Controls.Add(VTSpecParamCombobox);
             Controls.Add(label12);
             Controls.Add(label11);
@@ -391,5 +426,8 @@
         private Label label11;
         private Label label12;
         private ComboBox VTSpecParamCombobox;
+        private ComboBox ComboBoxAudioDevices;
+        private Label label13;
+        private LinkLabel linkAbout;
     }
 }

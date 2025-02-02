@@ -19,6 +19,7 @@ using NAudio.CoreAudioApi;
 using Microsoft.VisualBasic;
 using WebSocketSharp;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Diagnostics;
 
 namespace VT_Spectralizer
 {
@@ -37,6 +38,7 @@ namespace VT_Spectralizer
         private bool isRunning = false;
 
         //audio capture stuff
+        private MMDeviceEnumerator deviceEnumerator;
         private AudioCaptureFromOutput audioCapture;
         private string audioOutputDeviceGuid;
 
@@ -49,7 +51,9 @@ namespace VT_Spectralizer
         {
             settingsHandler = new SettingsHandler();
             InitializeComponent();
+            InitializeAudioDevices();
             LoadSettings();
+            linkAbout.Links.Add(0, linkAbout.Text.Length, "https://github.com/ShimizuAise/VT_Spectralizer");
             ConsoleVTSLoggerImpl vtsLogger = new ConsoleVTSLoggerImpl();
             string iconString = string.Empty;
             audioOutputDeviceGuid = string.Empty;
@@ -68,23 +72,50 @@ namespace VT_Spectralizer
         {
             // UrlTextBox.Text = settings.Url;
             // PortTextBox.Text = settings.Port;
-            // audioDeviceId = settings.AudioDeviceId;
 
             // Set the Interval Setting.
             string intervalSetting = settingsHandler.LoadSetting("updateInterval");
             string paramFloatString = settingsHandler.LoadSetting("paramToggle");
+            string savedGuid = settingsHandler.LoadSetting("audioOutputDeviceGuid");
+
             if (intervalSetting.IsNullOrEmpty()) intervalSetting = "16";
             updateInterval = Math.Max(16, Int32.Parse(intervalSetting));
             IntervalTextBox.Text = updateInterval.ToString();
             if (paramFloatString.IsNullOrEmpty()) paramFloatString = "0";
             paramToggle = float.Parse(paramFloatString);
             VTSpecParamCombobox.Text = paramFloatString;
+
+
+            foreach (ComboBoxItem item in ComboBoxAudioDevices.Items)
+            {
+                if (item.Value == savedGuid)
+                {
+                    ComboBoxAudioDevices.SelectedItem = item;
+                    audioOutputDeviceGuid = savedGuid;
+                    return;
+                }
+            }
+            ComboBoxAudioDevices.SelectedIndex = 0;
         }
 
         public void SaveSettings()
         {
             settingsHandler.UpdateSettings("updateInterval", updateInterval.ToString());
             settingsHandler.UpdateSettings("paramToggle", paramToggle.ToString());
+            settingsHandler.UpdateSettings("audioOutputDeviceGuid", audioOutputDeviceGuid);
+
+        }
+
+        private void InitializeAudioDevices()
+        {
+            deviceEnumerator = new MMDeviceEnumerator();
+            var devices = deviceEnumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active);
+            ComboBoxAudioDevices.Items.Clear();
+            ComboBoxAudioDevices.Items.Add(new ComboBoxItem("Default", string.Empty));
+            foreach (var device in devices)
+            {
+                ComboBoxAudioDevices.Items.Add(new ComboBoxItem(device.FriendlyName, device.ID));
+            }
         }
 
         private async void VTSConnect()
@@ -121,6 +152,7 @@ namespace VT_Spectralizer
             isRunning = true;
             TaskButton.Text = "Stop Audio Capture";
             TaskButton.Enabled = true;
+            ComboBoxAudioDevices.Enabled = false;
         }
 
         public void StopApp()
@@ -131,6 +163,7 @@ namespace VT_Spectralizer
             TaskButton.Text = "Start Audio Capture";
             UpdateFrequencyBands(new float[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f });
             TaskButton.Enabled = true;
+            ComboBoxAudioDevices.Enabled = true;
         }
 
         // Update frequency bands UI (you can display these values in labels or a chart)
@@ -205,6 +238,38 @@ namespace VT_Spectralizer
             string value = VTSpecParamCombobox.Text;
             paramToggle = float.Parse(value);
             SaveSettings();
+        }
+
+        private void ComboBoxAudioDevices_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selectedItem = (ComboBoxItem)ComboBoxAudioDevices.SelectedItem;
+            audioOutputDeviceGuid = selectedItem.Value;
+            audioCapture = new AudioCaptureFromOutput(selectedItem.Value, this);
+            SaveSettings();
+        }
+
+        private void LinkAbout_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // Open the URL in the default browser
+            Process.Start(new ProcessStartInfo(e.Link.LinkData.ToString()) { UseShellExecute = true });
+        }
+
+        // Helper class to store the combo item (display text and value)
+        public class ComboBoxItem
+        {
+            public string DisplayText { get; }
+            public string Value { get; }
+
+            public ComboBoxItem(string displayText, string value)
+            {
+                DisplayText = displayText;
+                Value = value;
+            }
+
+            public override string ToString()
+            {
+                return DisplayText; // Display the text in ComboBox
+            }
         }
     }
 }
