@@ -1,5 +1,7 @@
 # About: 
 
+VT_Spectralizer by ShimizuAise:
+
 This App will create 9 Parameters in VTube Studio. 
 
 # Parameters
@@ -62,4 +64,4 @@ If you want to contribute, you can submit pull requests, or report bugs.
 
 5: ToDo: Better UI Design to move away from default windows design.
 
-6: ToDo: Allow selection of audio input device for users of Virtual Audio Cable and similar apps.
+6: Done: ~~Allow selection of audio input device for users of Virtual Audio Cable and similar apps.~~
