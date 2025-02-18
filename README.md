@@ -30,7 +30,7 @@ VTSpec_volume: Volume of the Highest Volume Frequency. Range: 0-100
 
 For VTubers:
 
-1. Download the program. Its just a zip file, with no installation needed. (To Uninstall, just delete it)
+1. Download the app zip file from the Releases page, then extract it to anywhere on your pc. Its just a zip file, with no installation needed. (To Uninstall, just delete it)
 
 2. Open the app along with your VTubeStudio.
 
@@ -40,7 +40,7 @@ For Riggers using Live2D's VTS connection for previews:
 
 1. You will need to connect VT_Spectralizer to VTubeStudio at least once before the parameters will show up during model setup.
 
-2. The Recommended order for setup is: Export model with the params you want to use. Set up the model's params in VTubeStudio, then continue rigging.
+2. If you want to use Live2D's live preview, the Recommended order for setup is: Export model with the params you want to use. Set up the model's params in VTubeStudio, then continue rigging.
 
 # Shilling
 
